@@ -10,8 +10,9 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Наименование изделия")]
 
         public string ProductName { get; set; }
+        [DisplayName("Обьявленная цена")]
+        public int DeclaredValue { get; set; }
         [DisplayName("Вид ткани")]
-
         public string FabricType { get; set; }
         [DisplayName("Пятна")]
 
@@ -25,5 +26,9 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Ярлык")]
 
         public string Label { get; set; }
+        [DisplayName("Идентификатор заказа")]
+        public int OrderId { get; set; }
+
+        public virtual Order Order { get; set; } = null!;
     }
 }

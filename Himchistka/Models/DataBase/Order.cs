@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Extensions.Logging;
+using System.ComponentModel;
 
 namespace Himchistka.Models.DataBase
 {
@@ -29,7 +30,16 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Итоговая цена")]
 
         public int FinalPrice { get; set; }
-        
 
+        [DisplayName("Идентификатор клиента")]
+        public int ClientId { get; set; }
+
+
+        public virtual Client Client { get; set; } = null!;
+
+        public virtual ICollection<Product> Products { get; } = new List<Product>();
+
+
+        public virtual Service Service { get; set; }
     }
 }

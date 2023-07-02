@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Himchistka.Models.DataBase
 {
@@ -12,7 +13,16 @@ namespace Himchistka.Models.DataBase
         public string ProcessingType { get; set; }
         [DisplayName("Описание услуги")]
         public string ServiceDescription { get; set; }
+        [DisplayName("Затраченное время на услугу")]
+        public int ServiceTimeSpent { get; set; }
         [DisplayName("Затраты средств")]
+        
         public int ResourcesExpention { get; set; }
+        [DisplayName("Идентификатор сотрудника")]
+        public int EmployeeId { get; set; }
+
+        public virtual Order? Order { get; set; }
+
+        public virtual Employee Employee { get; set; }
     }
 }

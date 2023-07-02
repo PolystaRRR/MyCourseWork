@@ -14,5 +14,9 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Отчество")]
 
         public string MiddleName { get; set; }
+
+        public virtual Client? Client { get; set; }
+
+        public virtual Employee? Employee { get; set; }
     }
 }
