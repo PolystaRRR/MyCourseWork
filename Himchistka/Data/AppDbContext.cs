@@ -34,7 +34,7 @@ namespace Himchistka.Data;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-       => optionsBuilder.UseSqlServer("Server=DESKTOP-3ETDS8H;Database=DryCleanerDb;Trusted_Connection=True;TrustServerCertificate=Yes;Encrypt=False;MultipleActiveResultSets=true");
+       => optionsBuilder.UseSqlServer("Server=DESKTOP-3ETDS8H\\SQLEXPRESS;Database=DryCleanerDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace Himchistka.Data;
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Employee_Services");
             });
-        OnModelCreatingPartial(modelBuilder);
+        //OnModelCreatingPartial(modelBuilder);
         }
       // partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
