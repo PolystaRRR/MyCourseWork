@@ -13,9 +13,12 @@ namespace Himchistka.Models.DataBase
         public string Surname { get; set; }
         [DisplayName("Отчество")]
 
-        public string MiddleName { get; set; }
 
-        public virtual Client? Client { get; set; }
+        public string MiddleName { get; set; }
+        [DisplayName("Пол")]
+
+        public string Sex { get; set; }
+        public virtual Client Client { get; set; }
 
         public virtual Employee? Employee { get; set; }
     }

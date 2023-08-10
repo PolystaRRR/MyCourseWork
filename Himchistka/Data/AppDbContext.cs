@@ -46,7 +46,7 @@ namespace Himchistka.Data;
                 entity.ToTable("Client");
 
                 entity.Property(e => e.PhysicalPersonId).ValueGeneratedNever();
-                entity.Property(e => e.Phone).HasMaxLength(11);
+                entity.Property(e => e.PhoneNumber).HasMaxLength(11);
                 entity.Property(e => e.Email).HasMaxLength(20);
                 entity.Property(e => e.Adress).HasMaxLength(50);
 

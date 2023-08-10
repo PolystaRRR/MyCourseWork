@@ -12,13 +12,13 @@ namespace Himchistka.Models.DataBase
         public int PhysicalPersonId { get; set; }
         [DisplayName("Телефон")]
 
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
         [DisplayName("Электронная почта")]
 
-        public string Email { get; set; } = null!;
-        [DisplayName("Адрес проживания")]
+        public string? Email { get; set; } = null!;
+        [DisplayName("Адрес")]
 
-        public string Adress { get; set; }
+        public string? Adress { get; set; }
 
         //relationships
 

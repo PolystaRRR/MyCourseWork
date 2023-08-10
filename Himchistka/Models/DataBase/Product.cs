@@ -10,8 +10,11 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Наименование изделия")]
 
         public string ProductName { get; set; }
-        [DisplayName("Обьявленная цена")]
-        public int DeclaredValue { get; set; }
+        [DisplayName("Размер")]
+        public string? Size { get; set; }
+
+        [DisplayName("Обьявленная ценность")]
+        public int? DeclaredValue { get; set; }
         [DisplayName("Вид ткани")]
         public string FabricType { get; set; }
         [DisplayName("Пятна")]
@@ -19,10 +22,10 @@ namespace Himchistka.Models.DataBase
         public bool DirtStains { get; set; }
         [DisplayName("Цвет")]
 
-        public string Color { get; set; }
+        public string? Color { get; set; }
         [DisplayName("Дефекты")]
 
-        public string Defects { get; set; }
+        public string? Defects { get; set; }
         [DisplayName("Ярлык")]
 
         public string Label { get; set; }

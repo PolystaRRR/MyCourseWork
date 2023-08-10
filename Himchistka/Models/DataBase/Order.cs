@@ -8,7 +8,7 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Идентификатор заказа")]
 
         public int Id { get; set; }
-        [DisplayName("Дата приёмки")]
+        [DisplayName("Дата приёма")]
 
         public DateTime AcceptanceDate { get; set; }
 
@@ -22,11 +22,11 @@ namespace Himchistka.Models.DataBase
 
         [DisplayName("Доставка")]
 
-        public bool Delivery { get; set; }
+        public bool? Delivery { get; set; }
         [DisplayName("Скидка")]
 
 
-        public int Discount { get; set; }
+        public int? Discount { get; set; }
         [DisplayName("Итоговая цена")]
 
         public int FinalPrice { get; set; }
@@ -43,3 +43,4 @@ namespace Himchistka.Models.DataBase
         public virtual Service Service { get; set; }
     }
 }
+
