@@ -31,6 +31,10 @@ namespace Himchistka.Models.DataBase
 
         public int FinalPrice { get; set; }
 
+        [DisplayName("Тип оплаты")]
+        public string PaymentType { get; set; }
+        
+
         [DisplayName("Идентификатор клиента")]
         public int ClientId { get; set; }
 

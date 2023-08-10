@@ -104,6 +104,7 @@ namespace Himchistka.Data;
                 entity.Property(e => e.AcceptanceDate).HasColumnType("datetime");
                 entity.Property(e => e.ReadyDate).HasColumnType("datetime");
                 entity.Property(e => e.ReceptionPoint).HasMaxLength(50);
+                entity.Property(e => e.PaymentType).HasMaxLength(10);
                 entity.Property(e => e.FinalPrice).HasColumnType("money");
 
 
@@ -139,9 +140,9 @@ namespace Himchistka.Data;
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Employee_Services");
             });
-        //OnModelCreatingPartial(modelBuilder);
+        
         }
-      // partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+      
 
     }
 
