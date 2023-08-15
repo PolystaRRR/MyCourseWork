@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Himchistka.Models.DataBase
 {
     public class Order
     {
         [DisplayName("Идентификатор заказа")]
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [DisplayName("Дата приёма")]
 
@@ -41,7 +42,7 @@ namespace Himchistka.Models.DataBase
 
         public virtual Client Client { get; set; } = null!;
 
-        public virtual ICollection<Product> Products { get; } = new List<Product>();
+        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
 
         public virtual Service Service { get; set; }

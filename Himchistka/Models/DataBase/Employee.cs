@@ -13,6 +13,6 @@ namespace Himchistka.Models.DataBase
 
         public virtual PhysicalPerson PhysicalPerson { get; set; } = null!;
         public virtual ICollection<Service> Services { get; set; }
-        //public virtual Service Services { get; set; }
+        
     }
 }

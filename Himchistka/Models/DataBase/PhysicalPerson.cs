@@ -20,6 +20,6 @@ namespace Himchistka.Models.DataBase
         public string Sex { get; set; }
         public virtual Client Client { get; set; }
 
-        public virtual Employee? Employee { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
