@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Himchistka.Models.DataBase
 {
     public class Product
     {
         [DisplayName("Идентификатор изделия")]
-
+        [Key]
         public int Id { get; set; }
         [DisplayName("Наименование изделия")]
 

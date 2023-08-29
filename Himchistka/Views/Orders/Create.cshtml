@@ -5,7 +5,9 @@
 }
 <div class=" = "bg-secondary bg-opacity-10 py-2">
     <div class ="container">
-        <h1>Добавить заказ</h1>
+        
+            <h1>Добавить заказ</h1>
+        
     </div>
 </div>
 
@@ -55,7 +57,13 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-dark">Submit</button>
+            <button type="submit" class="btn btn-primary">Создать</button>
+           
+                <a asp-controller="Orders" asp-action="Index" class="btn btn-secondary">К списку
+
+                </a>
+            
         </div>
+        
     </form>
 </div>

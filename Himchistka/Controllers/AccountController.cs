@@ -34,7 +34,7 @@ namespace Himchistka.Controllers
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
                 isAuthenticate = true; 
             }
-            if (username == "user" && password == "123")
+            if (username != null && password != null)
             {
                 identity = new ClaimsIdentity(new[]
                 {

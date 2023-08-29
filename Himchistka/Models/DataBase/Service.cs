@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 
 namespace Himchistka.Models.DataBase
@@ -25,6 +26,7 @@ namespace Himchistka.Models.DataBase
         public int ResourcesExpention { get; set; }
         [DisplayName("Идентификатор сотрудника")]
         public int EmployeeId { get; set; }
+        [ForeignKey("EmployeeId")]
 
         public virtual Order Order { get; set; }
 

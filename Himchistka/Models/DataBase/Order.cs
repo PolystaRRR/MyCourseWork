@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Himchistka.Models.DataBase
@@ -8,17 +9,18 @@ namespace Himchistka.Models.DataBase
     {
         [DisplayName("Идентификатор заказа")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
         [DisplayName("Дата приёма")]
-
+        //[Required(ErrorMessage = "Выберите дату")]
         public DateTime AcceptanceDate { get; set; }
 
         [DisplayName("Дата готовности")]
-
+        //[Required(ErrorMessage = "Выберите дату")]
         public DateTime ReadyDate { get; set; }
 
         [DisplayName("Адрес приемного пункта")]
-
+        //[Required(ErrorMessage = "Выберите адрес приемного пункта")]
         public string ReceptionPoint { get; set; }
 
         [DisplayName("Доставка")]
@@ -29,7 +31,7 @@ namespace Himchistka.Models.DataBase
 
         public int? Discount { get; set; }
         [DisplayName("Итоговая цена")]
-
+        
         public int FinalPrice { get; set; }
 
         [DisplayName("Тип оплаты")]
@@ -38,7 +40,7 @@ namespace Himchistka.Models.DataBase
 
         [DisplayName("Идентификатор клиента")]
         public int ClientId { get; set; }
-
+        [ForeignKey("ClientId")]
 
         public virtual Client Client { get; set; } = null!;
 

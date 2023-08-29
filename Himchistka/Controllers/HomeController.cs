@@ -28,10 +28,17 @@ namespace Himchistka.Controllers
         [Authorize(Roles = "Admin,User")]
         public IActionResult About()
         {
-            ViewData["Message"] = "This is info about our company";
 
             return View();
         }
+
+        [Authorize(Roles = "Admin,User")]
+        public IActionResult Service()
+        {
+
+            return View();
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

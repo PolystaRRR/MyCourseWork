@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 
@@ -8,7 +9,7 @@ namespace Himchistka.Models.DataBase
     public class Client
     {
         [DisplayName("Идентификатор клиента")]
-
+        [Key]
         public int PhysicalPersonId { get; set; }
         [DisplayName("Телефон")]
 

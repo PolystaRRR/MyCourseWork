@@ -1,0 +1,79 @@
+﻿@using Himchistka.Models.DataBase;
+
+@model IEnumerable<Order> 
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+
+<div class ="container p-3">
+    <div class="row">
+        <h2 class="text-primary">Список заказов </h2>
+    </div>
+    <div class="col-6 text-end">
+        <a asp-controller="Orders" asp-action="Create" class="btn btn-primary">
+            Добавить новый заказ
+        </a>
+    </div>
+</div>
+
+<table class="table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AcceptanceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReadyDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceptionPoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delivery)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentType)
+            </th>
+        </tr>
+    </thead>
+
+<tbody>
+    @foreach(var obj in Model)
+    {
+        <tr>
+            <td width="50%">
+                @obj.AcceptanceDate
+            </td>
+            <td>
+                @obj.ReadyDate
+            </td>
+            <td>
+                @obj.ReceptionPoint
+            </td>
+            
+            <td>
+                @obj.Delivery
+            </td>
+
+            <td>
+                @obj.Discount
+            </td>
+            <td>
+                @obj.FinalPrice
+            </td>
+            <td>
+                @obj.PaymentType
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
