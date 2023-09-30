@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Himchistka.Models.DataBase.Service>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Услуги</h1>
+
+<div class="col-6 text-end">
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-controller="Services" asp-action="Create" class="btn btn-primary">
+            Добавить новую услугу
+        </a>
+    }
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServicePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessingType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceTimeSpent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResourcesExpention)
+            </th>
+          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServicePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProcessingType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceTimeSpent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResourcesExpention)
+            </td>
+           
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+
+                        <a asp-action="Edit" asp-route-id="@item.Id"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Изменить</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id"
+                           class="btn btn-secondary mx-2"> <i class="bi bi-eye"></i>Детали</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"
+                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Удалить</a>
+                    </td>
+                }
+        </tr>
+}
+    </tbody>
+</table>

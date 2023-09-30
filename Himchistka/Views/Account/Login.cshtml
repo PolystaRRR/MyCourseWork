@@ -1,26 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <h1>Авторизация</h1>
-            <form asp-action="Login" method="post">
-       <div class="form-group">
-            <label>Имя пользователя</label> 
-            <input type="text" class ="form-control" id ="username" name="username" required  />
-        </div>
-       <div class="form-group">
-            <label>Пароль</label>
-            <input type="text" class ="form-control" id ="password" name="password" required/>
-        </div>
-                <div class="form-group">
-                <label></label>
-                <input type="submit" class="btn btn-primary" value="Login"/>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Вход в программу</h3>
                 </div>
-            </form>
+                <div class="card-body">
+                    <form asp-action="login">
+                        <!-- Email input -->
+                        <div class="form-group">
+                            <label for="user">Имя пользователя:</label>
+                            <input placeholder="Введите имя" name="user" type="text" class="form-control" />
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Войти</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

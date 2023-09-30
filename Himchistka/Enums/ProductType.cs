@@ -2,7 +2,7 @@
 {
     public class ProductType
     {
-        public enum CabinType
+        public enum TypeOfProduct
         {
             Upper,
             Business,

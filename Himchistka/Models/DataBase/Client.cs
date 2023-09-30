@@ -8,7 +8,7 @@ namespace Himchistka.Models.DataBase
 {
     public class Client
     {
-        [DisplayName("Идентификатор клиента")]
+        [DisplayName("ИД клиента")]
         [Key]
         public int PhysicalPersonId { get; set; }
         [DisplayName("Телефон")]
@@ -21,7 +21,7 @@ namespace Himchistka.Models.DataBase
 
         public string? Adress { get; set; }
 
-        //relationships
+        //Relationships
 
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 

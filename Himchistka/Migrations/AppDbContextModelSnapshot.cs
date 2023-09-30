@@ -32,17 +32,17 @@ namespace Himchistka.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.HasKey("PhysicalPersonId");
 
-                    b.ToTable("Client", (string)null);
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("Himchistka.Models.DataBase.Employee", b =>
@@ -57,7 +57,7 @@ namespace Himchistka.Migrations
 
                     b.HasKey("PhysicalPersonId");
 
-                    b.ToTable("Employee", (string)null);
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Himchistka.Models.DataBase.Order", b =>
@@ -71,7 +71,7 @@ namespace Himchistka.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Delivery")
+                    b.Property<bool>("Delivery")
                         .HasColumnType("bit");
 
                     b.Property<int?>("Discount")
@@ -93,40 +93,44 @@ namespace Himchistka.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Order", (string)null);
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Himchistka.Models.DataBase.PhysicalPerson", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("MiddleName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("Sex")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Sex")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhysicalPersons");
+                    b.ToTable("PhysicalPersons", (string)null);
                 });
 
             modelBuilder.Entity("Himchistka.Models.DataBase.Product", b =>
@@ -170,13 +174,14 @@ namespace Himchistka.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Himchistka.Models.DataBase.Service", b =>
@@ -209,8 +214,8 @@ namespace Himchistka.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("ServicePrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("ServicePrice")
+                        .HasColumnType("money");
 
                     b.Property<int>("ServiceTimeSpent")
                         .HasColumnType("int");
@@ -219,7 +224,7 @@ namespace Himchistka.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("Himchistka.Models.DataBase.Client", b =>
@@ -227,6 +232,7 @@ namespace Himchistka.Migrations
                     b.HasOne("Himchistka.Models.DataBase.PhysicalPerson", "PhysicalPerson")
                         .WithOne("Client")
                         .HasForeignKey("Himchistka.Models.DataBase.Client", "PhysicalPersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Client_PhysicalPerson");
 
@@ -238,6 +244,7 @@ namespace Himchistka.Migrations
                     b.HasOne("Himchistka.Models.DataBase.PhysicalPerson", "PhysicalPerson")
                         .WithOne("Employee")
                         .HasForeignKey("Himchistka.Models.DataBase.Employee", "PhysicalPersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Employee_PhysicalPerson");
 
@@ -249,15 +256,14 @@ namespace Himchistka.Migrations
                     b.HasOne("Himchistka.Models.DataBase.Client", "Client")
                         .WithMany("Orders")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_Client_Orders");
+                        .HasConstraintName("FK_Client_Order");
 
                     b.HasOne("Himchistka.Models.DataBase.Service", "Service")
-                        .WithOne("Order")
-                        .HasForeignKey("Himchistka.Models.DataBase.Order", "Id")
-                        .IsRequired()
-                        .HasConstraintName("FK_Order_Service");
+                        .WithMany("Orders")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Client");
 
@@ -269,7 +275,6 @@ namespace Himchistka.Migrations
                     b.HasOne("Himchistka.Models.DataBase.Order", "Order")
                         .WithMany("Products")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -280,9 +285,8 @@ namespace Himchistka.Migrations
                     b.HasOne("Himchistka.Models.DataBase.Employee", "Employee")
                         .WithMany("Services")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_Employee_Services");
+                        .HasConstraintName("FK_Employee_Service");
 
                     b.Navigation("Employee");
                 });
@@ -307,13 +311,13 @@ namespace Himchistka.Migrations
                     b.Navigation("Client")
                         .IsRequired();
 
-                    b.Navigation("Employee");
+                    b.Navigation("Employee")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Himchistka.Models.DataBase.Service", b =>
                 {
-                    b.Navigation("Order")
-                        .IsRequired();
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

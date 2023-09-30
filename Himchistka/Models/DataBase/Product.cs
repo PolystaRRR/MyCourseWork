@@ -5,7 +5,7 @@ namespace Himchistka.Models.DataBase
 {
     public class Product
     {
-        [DisplayName("Идентификатор изделия")]
+        [DisplayName("ИД изделия")]
         [Key]
         public int Id { get; set; }
         [DisplayName("Наименование изделия")]
@@ -30,7 +30,10 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Ярлык")]
 
         public string Label { get; set; }
-        [DisplayName("Идентификатор заказа")]
+
+        //Relationships
+
+        [DisplayName("ИД заказа")]
         public int OrderId { get; set; }
 
         public virtual Order Order { get; set; } = null!;

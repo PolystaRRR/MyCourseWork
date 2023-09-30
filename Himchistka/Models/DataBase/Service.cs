@@ -6,7 +6,7 @@ namespace Himchistka.Models.DataBase
 {
     public class Service
     {
-        [DisplayName("Идентификатор услуги")]
+        [DisplayName("ИД услуги")]
         public int Id { get; set; }
         [DisplayName("Наименование услуги")]
         public string ServiceName { get; set; }
@@ -19,17 +19,19 @@ namespace Himchistka.Models.DataBase
         [DisplayName("Тип обработки")]
         public string ProcessingType { get; set; }
 
-        [DisplayName("Затраченное время на услугу")]
+        [DisplayName("Затраченное время")]
         public int ServiceTimeSpent { get; set; }
         [DisplayName("Затраты средств")]
 
         public int ResourcesExpention { get; set; }
-        [DisplayName("Идентификатор сотрудника")]
+        [DisplayName("ИД сотрудника")]
+
+        //Relationships
         public int EmployeeId { get; set; }
         [ForeignKey("EmployeeId")]
 
-        public virtual Order Order { get; set; }
+        public virtual Employee Employee { get; set; } = null!;
 
-        public virtual Employee Employee { get; set; }
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

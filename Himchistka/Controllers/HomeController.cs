@@ -15,29 +15,18 @@ namespace Himchistka.Controllers
         {
             _logger = logger;
         }
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "admin,user")]
         public IActionResult Index()
         {
             return View();
         }
-        [Authorize(Roles = "Admin,User")]
+
+        [Authorize(Roles = "admin,user")]
         public IActionResult Privacy()
         {
             return View();
         }
-        [Authorize(Roles = "Admin,User")]
-        public IActionResult About()
-        {
-
-            return View();
-        }
-
-        [Authorize(Roles = "Admin,User")]
-        public IActionResult Service()
-        {
-
-            return View();
-        }
+    
 
 
 

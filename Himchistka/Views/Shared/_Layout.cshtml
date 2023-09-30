@@ -6,12 +6,41 @@
     <title>@ViewData["Title"] - Himchistka</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/about.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Himchistka.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* установка фона страницы */
+        }
+
+        .card {
+            background-color: #fff; /* установка фона карточки */
+            border-color: #17a2b8; /* установка цвета границы карточки */
+        }
+
+        .card-header {
+            background-color: #17a2b8; /* установка фона заголовка карточки */
+            color: #fff; /* установка цвета текста заголовка карточки */
+        }
+
+        .btn-primary {
+            background-color: #17a2b8; /* установка фона кнопки */
+            border-color: #17a2b8; /* установка цвета границы кнопки */
+        }
+
+            .btn-primary:hover {
+                background-color: #138496; /* установка фона кнопки при наведении */
+                border-color: #138496; /* установка цвета границы кнопки при наведении */
+            }
+
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
-            <div class="container">
+        
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
+                <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Himchistka</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -22,41 +51,75 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">Компания</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">Наши услуги</a>
-                        </li>
                         
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Admin Menu
+                                    Меню
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item"
+                                        asp-area=""
+                                        asp-controller="PhysicalPersons"
+                                        asp-action="Index">
 
-                                
-                                    <li><a class="dropdown-item" 
+                                            Физлица
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                        asp-area=""
+                                        asp-controller="Clients"
+                                        asp-action="Index">
+
+                                            Клиенты
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                        asp-area=""
+                                        asp-controller="Employees"
+                                        asp-action="Index">
+
+                                            Сотрудники
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                        asp-area=""
+                                        asp-controller="Services"
+                                        asp-action="Index">
+
+                                            Услуги
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" 
                                         asp-area="" 
                                         asp-controller="Orders"
                                         asp-action="Index">
 
-                                            Заказы</a></li>
-                               
+                                            Заказы
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                        asp-area=""
+                                        asp-controller="Products"
+                                        asp-action="Index">
+
+                                            Изделия
+                                        </a>
+                                    </li>                          
                                 </ul>
-
-                              </li>
-                                
-                                
+                            </li>
                         
-
                     </ul>
-
                 </div>
             </div>
         </nav>
+        
     </header>
     <div>
         <main role="main" class="pb-3">

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Himchistka.Models.DataBase.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Изделия</h1>
+
+<div class="col-6 text-end">
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-controller="Products" asp-action="Create" class="btn btn-primary">
+            Добавить новое изделие
+        </a>
+    }
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeclaredValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabricType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DirtStains)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Defects)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Label)
+            </th>
+          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeclaredValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FabricType)
+            </td>
+                <td>
+                    @if (item.DirtStains == true)
+                    {
+                        <label>Наблюдаются</label>
+                    }
+                    else
+                    {
+                        <label>Не наблюдаются</label>
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Defects)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+
+                        <a asp-action="Edit" asp-route-id="@item.Id"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Изменить</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id"
+                           class="btn btn-secondary mx-2"> <i class="bi bi-eye"></i>Детали</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"
+                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Удалить</a>
+                    </td>
+                }
+        </tr>
+}
+    </tbody>
+</table>

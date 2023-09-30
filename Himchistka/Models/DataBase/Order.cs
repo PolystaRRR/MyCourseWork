@@ -7,25 +7,23 @@ namespace Himchistka.Models.DataBase
 {
     public class Order
     {
-        [DisplayName("Идентификатор заказа")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+        [DisplayName("ИД заказа")]
+        
         public int Id { get; set; }
         [DisplayName("Дата приёма")]
-        //[Required(ErrorMessage = "Выберите дату")]
+        
         public DateTime AcceptanceDate { get; set; }
 
         [DisplayName("Дата готовности")]
-        //[Required(ErrorMessage = "Выберите дату")]
+        
         public DateTime ReadyDate { get; set; }
 
         [DisplayName("Адрес приемного пункта")]
-        //[Required(ErrorMessage = "Выберите адрес приемного пункта")]
         public string ReceptionPoint { get; set; }
 
         [DisplayName("Доставка")]
 
-        public bool? Delivery { get; set; }
+        public bool Delivery { get; set; }
         [DisplayName("Скидка")]
 
 
@@ -36,9 +34,10 @@ namespace Himchistka.Models.DataBase
 
         [DisplayName("Тип оплаты")]
         public string PaymentType { get; set; }
-        
 
-        [DisplayName("Идентификатор клиента")]
+        //Relationships
+
+        [DisplayName("ИД клиента")]
         public int ClientId { get; set; }
         [ForeignKey("ClientId")]
 
@@ -47,7 +46,13 @@ namespace Himchistka.Models.DataBase
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
 
-        public virtual Service Service { get; set; }
+        [DisplayName("ИД заказа")]
+        public int ServiceId { get; set; }
+        public virtual Service Service { get; set; } = null!;
+
+
+
+        
     }
 }
 

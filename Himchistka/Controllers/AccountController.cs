@@ -1,56 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Himchistka.Controllers
+namespace Himchistka.Controllers;
+
+public class AccountController : Controller
 {
-    public class AccountController : Controller
+    [HttpGet]
+
+    
+    public IActionResult Login()
     {
-        public IActionResult Index()
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(string user)
+    { 
+
+        await AuthAsync(user);
+        return RedirectToAction("Index", "Home");
+    }
+
+    public ActionResult AccessDenied()
+    {
+        return View();
+    }
+
+    private async Task AuthAsync(string user)
+    {
+        List<Claim> claims = new();
+
+        switch (user)
         {
-            return View();
+            case "admin":
+                claims.Add(new Claim(ClaimsIdentity.DefaultNameClaimType, "qwer"));
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "admin"));
+                break;
+            default:
+                claims.Add(new Claim(ClaimsIdentity.DefaultNameClaimType, "qwer"));
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "user"));
+                break;
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Login(string username, string password)
-        {
-            if(!string.IsNullOrEmpty(username) && string.IsNullOrEmpty(password))
-            {
-                return RedirectToAction("Login");
-            }
-            ClaimsIdentity identity = null;
-            bool isAuthenticate = false;
-            if (username == "admin" && password == "admin")
-            {
-                identity = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Role, "Admin")
-                }, CookieAuthenticationDefaults.AuthenticationScheme);
-                isAuthenticate = true; 
-            }
-            if (username != null && password != null)
-            {
-                identity = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Role, "User")
-                }, CookieAuthenticationDefaults.AuthenticationScheme);
-                isAuthenticate = true;
-            }
-
-            if (isAuthenticate)
-            {
-                var principal = new ClaimsPrincipal(identity);
-                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
-        }
+        // создаем объект ClaimsIdentity
+        ClaimsIdentity identity = new(claims, "Cookies", ClaimsIdentity.DefaultNameClaimType,
+            ClaimsIdentity.DefaultRoleClaimType);
+        // установка аутентификационных куки
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(identity));
     }
 }
