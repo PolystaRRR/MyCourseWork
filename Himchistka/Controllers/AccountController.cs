@@ -10,8 +10,6 @@ namespace Himchistka.Controllers;
 public class AccountController : Controller
 {
     [HttpGet]
-
-    
     public IActionResult Login()
     {
         return View();
@@ -20,7 +18,14 @@ public class AccountController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(string user)
-    { 
+    {
+
+        if (string.IsNullOrEmpty(user))
+        {
+            ModelState.AddModelError("user", "Введите логин");
+            return View();
+        }
+        
 
         await AuthAsync(user);
         return RedirectToAction("Index", "Home");
@@ -46,7 +51,6 @@ public class AccountController : Controller
                 claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "user"));
                 break;
         }
-
         // создаем объект ClaimsIdentity
         ClaimsIdentity identity = new(claims, "Cookies", ClaimsIdentity.DefaultNameClaimType,
             ClaimsIdentity.DefaultRoleClaimType);

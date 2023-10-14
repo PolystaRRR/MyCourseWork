@@ -51,8 +51,6 @@ namespace Himchistka.Controllers
                         break;
                 }
             }
-
-
             return View ("Index",  await clients.ToListAsync());
             
         }
@@ -80,8 +78,15 @@ namespace Himchistka.Controllers
         [Authorize(Roles ="admin")]
         public IActionResult Create()
         {
-            ViewData["PhysicalPersonId"] = new SelectList(_context.PhysicalPersons, "Id", "Id");
+           
+
+            ViewData["PhysicalPersonId"] = new SelectList(_context.PhysicalPersons.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = $"{s.Id} - {s.Surname} {s.Name} {s.MiddleName}"
+            }), "Value", "Text");
             return View();
+           
         }
 
         // POST: Clients/Create
@@ -137,8 +142,6 @@ namespace Himchistka.Controllers
                 return NotFound();
             }
 
-            
-           
                 try
                 {
                     _context.Update(client);
@@ -157,9 +160,7 @@ namespace Himchistka.Controllers
                     }
                 }
             return RedirectToAction(nameof(Index));
-
-
-            
+  
         }
 
         // GET: Clients/Delete/5
@@ -206,8 +207,5 @@ namespace Himchistka.Controllers
         {
           return (_context.Clients?.Any(e => e.PhysicalPersonId == id)).GetValueOrDefault();
         }
-
-
-      
     }
 }

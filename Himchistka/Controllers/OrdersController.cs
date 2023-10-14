@@ -10,6 +10,7 @@ using Himchistka.Models.DataBase;
 using Himchistka.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace Himchistka.Controllers
 {
@@ -86,8 +87,19 @@ namespace Himchistka.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
-            ViewData["ClientId"] = new SelectList(_context.Clients, "PhysicalPersonId", "PhysicalPersonId");
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id");
+            ViewData["ClientId"] = new SelectList(_context.Clients
+            .Join(_context.PhysicalPersons, c => c.PhysicalPersonId, p => p.Id, (c, p) => new { Client = c, PhysicalPerson = p })
+            .Select(cp => new SelectListItem
+        {
+            Value = cp.Client.PhysicalPersonId.ToString(),
+            Text = $"{cp.Client.PhysicalPersonId} -  {cp.PhysicalPerson.Surname} {cp.PhysicalPerson.Name} {cp.PhysicalPerson.MiddleName}"
+         }), "Value", "Text");
+
+            ViewData["ServiceId"] = new SelectList(_context.Services.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = $"{s.Id} - {s.ServiceName}"
+            }), "Value", "Text");
             return View();
         }
 
@@ -103,14 +115,27 @@ namespace Himchistka.Controllers
             {
                 _context.Add(order);
                 await _context.SaveChangesAsync();
+
+                using (var connection = new SqlConnection("Server=DESKTOP-H86OC4I\\SQLEXPRESS;Database=DryCleanerDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"))
+                {
+                    connection.Open();
+
+                    using (var command = new SqlCommand("CalculateFinalPrice", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@OrderId", order.Id);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
             }
-            catch (DbUpdateException) {
+            catch (DbUpdateException)
+            {
                 return View(Consts.ImpossibleActionViewName);
                 throw;
             }
-                return RedirectToAction(nameof(Index));
-            
-           
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Orders/Edit/5
@@ -129,8 +154,19 @@ namespace Himchistka.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "PhysicalPersonId", "PhysicalPersonId", order.ClientId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", order.ServiceId);
+            ViewData["ClientId"] = new SelectList(_context.Clients
+            .Join(_context.PhysicalPersons, c => c.PhysicalPersonId, p => p.Id, (c, p) => new { Client = c, PhysicalPerson = p })
+            .Select(cp => new SelectListItem
+            {
+                Value = cp.Client.PhysicalPersonId.ToString(),
+                Text = $"{cp.Client.PhysicalPersonId} -  {cp.PhysicalPerson.Surname} {cp.PhysicalPerson.Name} {cp.PhysicalPerson.MiddleName}"
+            }), "Value", "Text");
+
+            ViewData["ServiceId"] = new SelectList(_context.Services.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = $"{s.Id} - {s.ServiceName}"
+            }), "Value", "Text");
             return View(order);
         }
 

@@ -52,8 +52,13 @@ namespace Himchistka.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
-            ViewData["PhysicalPersonId"] = new SelectList(_context.PhysicalPersons, "Id", "Id");
+            ViewData["PhysicalPersonId"] = new SelectList(_context.PhysicalPersons.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = $"{s.Id} - {s.Surname} {s.Name} {s.MiddleName}"
+            }), "Value", "Text");
             return View();
+            
         }
 
         // POST: Employees/Create

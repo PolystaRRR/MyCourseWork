@@ -43,8 +43,9 @@ namespace Himchistka.Data;
     {
             modelBuilder.Entity<PhysicalPerson>(entity => 
             {
+                entity.HasKey(e => e.Id);
                 entity.ToTable("PhysicalPersons");
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).UseIdentityColumn();
                 entity.Property(e => e.Name).HasMaxLength(30);
                 entity.Property(e => e.Surname).HasMaxLength(30);
                 entity.Property(e => e.MiddleName).HasMaxLength(30);
@@ -53,24 +54,23 @@ namespace Himchistka.Data;
                 entity.HasOne(p => p.Client)
                     .WithOne(s => s.PhysicalPerson)
                     .HasForeignKey<Client>(s => s.PhysicalPersonId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_Client_PhysicalPerson");
 
                 entity.HasOne(p => p.Employee)
                     .WithOne(t => t.PhysicalPerson)
                     .HasForeignKey<Employee>(t => t.PhysicalPersonId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_Employee_PhysicalPerson");
             });
 
 
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.HasKey(e => e.PhysicalPersonId);
-
                 entity.ToTable("Employees");
-
                 entity.Property(e => e.PhysicalPersonId).ValueGeneratedNever();
-
-                entity.Property(e => e.Post).HasMaxLength(20);
+                entity.Property(e => e.Post).HasMaxLength(50);
 
 
                 entity.HasOne(d => d.PhysicalPerson).WithOne(p => p.Employee)
@@ -84,11 +84,8 @@ namespace Himchistka.Data;
         modelBuilder.Entity<Client>(entity =>
         {
             entity.HasKey(e => e.PhysicalPersonId);
-
             entity.ToTable("Clients");
-
             entity.Property(e => e.PhysicalPersonId).ValueGeneratedNever();
-
             entity.Property(e => e.PhoneNumber).HasMaxLength(12);
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.Adress).HasMaxLength(50);
@@ -109,22 +106,21 @@ namespace Himchistka.Data;
                 entity.Property(e => e.DeclaredValue).HasColumnType("money");
                 entity.Property(e => e.FabricType).HasMaxLength(20);
                 entity.Property(e => e.Color).HasMaxLength(20);
-                entity.Property(e => e.Defects).HasMaxLength(20);
+                entity.Property(e => e.Defects).HasMaxLength(50);
                 entity.Property(e => e.Label).HasMaxLength(1);
 
                 entity.HasOne(e => e.Order)
                     .WithMany(e => e.Products)
                     .HasForeignKey(e => e.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_Products");
             });
 
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.HasKey(e => e.Id);
-
                 entity.ToTable("Orders");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).UseIdentityColumn();
                 entity.Property(e => e.AcceptanceDate).HasColumnType("datetime");
                 entity.Property(e => e.ReadyDate).HasColumnType("datetime");
                 entity.Property(e => e.ReceptionPoint).HasMaxLength(50);
@@ -132,40 +128,37 @@ namespace Himchistka.Data;
                 entity.Property(e => e.FinalPrice).HasColumnType("money");
 
 
-
-                //entity.HasOne(o => o.Service)
-                //.WithMany(s => s.Orders)
-                //.HasForeignKey(o => o.ServiceId);
-
                 entity.HasOne(e => e.Client)
                    .WithMany(e => e.Orders)
                    .HasForeignKey(e => e.ClientId)
                    .OnDelete(DeleteBehavior.ClientSetNull)
-                   .HasConstraintName("FK_Client_Order");
+                   .HasConstraintName("FK_Client_Orders");
             });
 
 
             modelBuilder.Entity<Service>(entity =>
             {
-
-                entity.ToTable("Services");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.ServiceName).HasMaxLength(50);
+                entity.ToTable("Services");
+                entity.Property(e => e.Id).UseIdentityColumn();
+                
+                entity.Property(e => e.ServiceName).HasMaxLength(300);
                 entity.Property(e => e.ServicePrice).HasColumnType("money");
-                entity.Property(e => e.ServiceDescription).HasMaxLength(50);
-                entity.Property(e => e.ProcessingType).HasMaxLength(10);
-                entity.Property(e => e.ResourcesExpention).HasMaxLength(50);
+                entity.Property(e => e.ServiceDescription).HasMaxLength(300);
+                entity.Property(e => e.ProcessingType).HasMaxLength(50);
+                entity.Property(e => e.ResourcesExpention);
 
 
                 entity.HasMany(o => o.Orders)
                 .WithOne(s => s.Service)
-                .HasForeignKey(o => o.ServiceId);
+                .HasForeignKey(o => o.ServiceId)
+                .HasConstraintName("FK_Orders_Service");
 
                 entity.HasOne(e => e.Employee)
                     .WithMany(e => e.Services)
                     .HasForeignKey(e => e.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Employee_Service");
+                    .HasConstraintName("FK_Employee_Services");
             });
         OnModelCreatingPartial(modelBuilder);
 

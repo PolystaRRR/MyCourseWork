@@ -8,7 +8,7 @@ namespace Himchistka.Models.DataBase
         [DisplayName("ИД изделия")]
         [Key]
         public int Id { get; set; }
-        [DisplayName("Наименование изделия")]
+        [DisplayName("Наименование")]
 
         public string ProductName { get; set; }
         [DisplayName("Размер")]

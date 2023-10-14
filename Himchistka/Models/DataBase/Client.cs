@@ -9,7 +9,7 @@ namespace Himchistka.Models.DataBase
     public class Client
     {
         [DisplayName("ИД клиента")]
-        [Key]
+        
         public int PhysicalPersonId { get; set; }
         [DisplayName("Телефон")]
 

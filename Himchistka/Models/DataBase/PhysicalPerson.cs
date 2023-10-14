@@ -5,7 +5,7 @@ namespace Himchistka.Models.DataBase
 {
     public class PhysicalPerson
     {
-        [DisplayName("ИД физического лица")]
+        [DisplayName("ИД физлица")]
         
         public int Id { get; set; }
         [DisplayName("Имя")]
@@ -23,8 +23,8 @@ namespace Himchistka.Models.DataBase
         public bool Sex { get; set; }
 
         //Relationships
-        public virtual Client Client { get; set; }
+        public virtual Client Client { get; set; } = null!;
 
-        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; } = null!;
     }
 }

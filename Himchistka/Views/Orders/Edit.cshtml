@@ -29,10 +29,12 @@
                 <input asp-for="ReceptionPoint" class="form-control" />
                 <span asp-validation-for="ReceptionPoint" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Delivery" /> @Html.DisplayNameFor(model => model.Delivery)
-                </label>
+            <div class="form-group">
+                <label asp-for="Delivery" class="control-label"></label>
+                <select name="delivery" class="form-select">
+                    <option value="true">Доставка нужна</option>
+                    <option value="false">Доставка не нужна</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Discount" class="control-label"></label>
@@ -62,7 +64,7 @@
             <div class="mb-3 mt-3">
                 @if (User.IsInRole("admin"))
                 {
-                    <button type="submit" class="btn btn-success">Изменить</button>
+                    <button type="submit" class="btn btn-success">Подтвердить</button>
                 }
                 <a asp-controller="Orders" asp-action="Index" class="btn btn-primary">
                     Назад к списку

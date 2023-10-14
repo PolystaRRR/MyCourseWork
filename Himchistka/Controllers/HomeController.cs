@@ -18,6 +18,7 @@ namespace Himchistka.Controllers
         [Authorize(Roles = "admin,user")]
         public IActionResult Index()
         {
+           
             return View();
         }
 

@@ -7,14 +7,18 @@
 
 <h1>Изделия</h1>
 
-<div class="col-6 text-end">
-    @if (User.IsInRole("admin"))
-    {
-        <a asp-controller="Products" asp-action="Create" class="btn btn-primary">
-            Добавить новое изделие
-        </a>
-    }
-</div>
+<form asp-controller="Products" asp-action="Index">
+    <div class="row">
+        <div class="col-6">
+            @if (User.IsInRole("admin"))
+            {
+                <a asp-controller="Products" asp-action="Create" class="btn btn-primary d-inline-block">
+                    Добавить новое изделие
+                </a>
+            }
+        </div>
+     </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -70,11 +74,11 @@
                 <td>
                     @if (item.DirtStains == true)
                     {
-                        <label>Наблюдаются</label>
+                        <label>Имеются</label>
                     }
                     else
                     {
-                        <label>Не наблюдаются</label>
+                        <label>Не имеются</label>
                     }
                 </td>
             <td>

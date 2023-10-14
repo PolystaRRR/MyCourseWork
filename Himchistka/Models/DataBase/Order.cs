@@ -26,7 +26,7 @@ namespace Himchistka.Models.DataBase
         public bool Delivery { get; set; }
         [DisplayName("Скидка")]
 
-
+        [DefaultValue(0)]
         public int? Discount { get; set; }
         [DisplayName("Итоговая цена")]
         
@@ -46,7 +46,7 @@ namespace Himchistka.Models.DataBase
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
 
-        [DisplayName("ИД заказа")]
+        [DisplayName("ИД услуги")]
         public int ServiceId { get; set; }
         public virtual Service Service { get; set; } = null!;
 

@@ -29,15 +29,17 @@
                 <input asp-for="MiddleName" class="form-control" />
                 <span asp-validation-for="MiddleName" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Sex" /> @Html.DisplayNameFor(model => model.Sex)
-                </label>
+            <div class="form-group">
+                <label asp-for="Sex" class="control-label"></label>
+                <select name="sex" class="form-select">
+                    <option value="true">Мужчина</option>
+                    <option value="false">Женщина</option>
+                </select>
             </div>
             <div class="mb-3 mt-3">
                 @if (User.IsInRole("admin"))
                 {
-                    <button type="submit" class="btn btn-success">Изменить</button>
+                    <button type="submit" class="btn btn-success">Подтвердить</button>
                 }
                 <a asp-controller="PhysicalPersons" asp-action="Index" class="btn btn-primary">
                     Назад к списку

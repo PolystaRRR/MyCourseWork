@@ -51,8 +51,13 @@ namespace Himchistka.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "PhysicalPersonId", "PhysicalPersonId");
-            return View();
+          
+                ViewData["EmployeeId"] = new SelectList(_context.Employees.Select(s => new SelectListItem
+                {
+                    Value = s.PhysicalPersonId.ToString(),
+                    Text = $"{s.PhysicalPersonId} - {s.Post}"
+                }), "Value", "Text");
+                return View();
         }
 
         // POST: Services/Create
@@ -89,7 +94,11 @@ namespace Himchistka.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "PhysicalPersonId", "PhysicalPersonId", service.EmployeeId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees.Select(s => new SelectListItem
+            {
+                Value = s.PhysicalPersonId.ToString(),
+                Text = $"{s.PhysicalPersonId} - {s.Post}"
+            }), "Value", "Text");
             return View(service);
         }
 

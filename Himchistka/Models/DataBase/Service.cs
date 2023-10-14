@@ -8,20 +8,20 @@ namespace Himchistka.Models.DataBase
     {
         [DisplayName("ИД услуги")]
         public int Id { get; set; }
-        [DisplayName("Наименование услуги")]
+        [DisplayName("Наименование")]
         public string ServiceName { get; set; }
         [DisplayName("Стоимость услуги")]
         public int ServicePrice { get; set; }
 
-        [DisplayName("Описание услуги")]
+        [DisplayName("Описание")]
         public string ServiceDescription { get; set; }
 
         [DisplayName("Тип обработки")]
         public string ProcessingType { get; set; }
 
-        [DisplayName("Затраченное время")]
+        [DisplayName("Затраченное время (ч.)")]
         public int ServiceTimeSpent { get; set; }
-        [DisplayName("Затраты средств")]
+        [DisplayName("Затраты на средства")]
 
         public int ResourcesExpention { get; set; }
         [DisplayName("ИД сотрудника")]

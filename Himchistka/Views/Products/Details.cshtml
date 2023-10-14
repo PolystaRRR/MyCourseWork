@@ -38,8 +38,15 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DirtStains)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DirtStains)
+        <dd class="col-sm-10">
+            @if (Model.DirtStains)
+            {
+                <text>Имеются</text>
+            }
+            else
+            {
+                <text>Не имеются</text>
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Color)

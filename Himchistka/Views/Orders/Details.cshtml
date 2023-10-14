@@ -32,8 +32,15 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Delivery)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Delivery)
+        <dd class="col-sm-10">
+            @if (Model.Delivery)
+            {
+                <text>Доставка нужна</text>
+            }
+            else
+            {
+                <text>Доставка не нужна</text>
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Discount)

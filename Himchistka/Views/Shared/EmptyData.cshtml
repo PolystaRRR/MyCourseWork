@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+    ViewData["Title"] = "Empty data";
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="h1 bg-danger p-3 rounded text-white">Это действие невозможно выполнить. Необходимо ввести логин</h1>
+                    <a href="@Url.Action("Login")" class="btn btn-secondary mt-4">Вернуться</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

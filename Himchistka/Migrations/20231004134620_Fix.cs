@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Himchistka.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Fix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace Himchistka.Migrations
                 name: "PhysicalPersons",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
@@ -82,7 +83,7 @@ namespace Himchistka.Migrations
                 {
                     table.PrimaryKey("PK_Services", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_Service",
+                        name: "FK_Employee_Services",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "PhysicalPersonId");
@@ -92,7 +93,8 @@ namespace Himchistka.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     AcceptanceDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     ReadyDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     ReceptionPoint = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -107,12 +109,12 @@ namespace Himchistka.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Client_Order",
+                        name: "FK_Client_Orders",
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "PhysicalPersonId");
                     table.ForeignKey(
-                        name: "FK_Orders_Services_ServiceId",
+                        name: "FK_Orders_Service",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
@@ -139,7 +141,7 @@ namespace Himchistka.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Orders_OrderId",
+                        name: "FK_Order_Products",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id");
